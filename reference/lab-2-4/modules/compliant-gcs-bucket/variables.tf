@@ -20,7 +20,6 @@ variable "kms_location" {
 variable "project_label" {
   type        = string
   description = "Short identifier for the project. Used in bucket names and the project label."
-
   validation {
     condition     = can(regex("^[a-z][a-z0-9-]{2,20}$", var.project_label))
     error_message = "project_label must be 3-21 lowercase alphanumerics or hyphens, starting with a letter."
@@ -30,7 +29,6 @@ variable "project_label" {
 variable "environment" {
   type        = string
   description = "Deployment environment. Drives retention and labels."
-
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "environment must be one of: dev, staging, prod."
@@ -40,7 +38,6 @@ variable "environment" {
 variable "retention_days" {
   type        = number
   description = "Object retention in days. Production must be >= 365."
-
   validation {
     condition     = var.retention_days >= 1 && var.retention_days <= 3650
     error_message = "retention_days must be between 1 and 3650."

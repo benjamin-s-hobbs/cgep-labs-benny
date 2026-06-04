@@ -13,7 +13,8 @@ terraform {
 }
 
 locals {
-  # Required labels are computed in locals so consumers cannot disable them via var.labels.
+  # Required labels are computed in locals so consumers cannot disable them
+  # via var.labels.
   required_labels = {
     project          = var.project_label
     environment      = var.environment
@@ -44,7 +45,6 @@ resource "google_kms_key_ring" "ring" {
 resource "google_kms_crypto_key" "key" {
   name     = local.key_id
   key_ring = google_kms_key_ring.ring.id
-
   rotation_period = "7776000s"
 
   # Allow destroy in lab; production should set prevent_destroy = true.
