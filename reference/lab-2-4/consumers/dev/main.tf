@@ -30,4 +30,7 @@ output "bucket_url" {
   value = module.data_bucket.bucket_url
 }
 
-
+variable "gcp_project" {
+  type        = string
+  description = "GCP project ID. Set via terraform.tfvars or -var=gcp_project=<id>."
+}
