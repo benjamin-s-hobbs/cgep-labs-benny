@@ -74,7 +74,7 @@ resource "google_storage_bucket" "bad_public" {
   name                        = "${var.gcp_project}-lab33-public"
   location                    = "us-central1"
   uniform_bucket_level_access = true
-  public_access_prevention    = "inherited"
+  public_access_prevention    = "enforced"
 
   encryption {
     default_kms_key_name = google_kms_crypto_key.key.id
