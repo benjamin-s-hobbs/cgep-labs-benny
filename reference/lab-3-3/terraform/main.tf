@@ -112,16 +112,5 @@ resource "google_compute_network" "demo" {
   auto_create_subnetworks = false
 }
 
-resource "google_compute_firewall" "open_ssh" {
-  name    = "lab33-open-ssh"
-  network = google_compute_network.demo.name
 
-  direction     = "INGRESS"
-  source_ranges = ["0.0.0.0/0"]
 
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-  # AC-3 should fire.
-}
