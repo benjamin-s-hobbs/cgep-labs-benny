@@ -56,7 +56,11 @@ resource "google_storage_bucket" "bad_no_cmek" {
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
 
-  # No encryption block. SC-28 should fire.
+  # No encryption block. SC-28 should fire. Encryption block added-test should pass
+  encryption {
+    default_kms_key_name = google_kms_crypto_key.key.id
+  }
+  
 
   labels = {
     project          = "lab33"
@@ -69,7 +73,7 @@ resource "google_storage_bucket" "bad_no_cmek" {
 resource "google_storage_bucket" "bad_public" {
   name                        = "${var.gcp_project}-lab33-public"
   location                    = "us-central1"
-  uniform_bucket_level_access = false
+  uniform_bucket_level_access = true
   public_access_prevention    = "inherited"
 
   encryption {
@@ -94,7 +98,13 @@ resource "google_storage_bucket" "bad_no_labels" {
     default_kms_key_name = google_kms_crypto_key.key.id
   }
 
-  # CM-6 should fire on missing labels.
+labels = {
+    project          = "lab33"
+    environment      = "dev"
+    managed_by       = "terraform"
+    compliance_scope = "cge-p-lab"
+  }
+  # CM-6 should fire on missing labels. This should be corrected now.
 }
 
 resource "google_compute_network" "demo" {
